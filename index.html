@@ -1,187 +1,178 @@
+<!--
+ Copyright 2016 Google Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>就是豆花</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<style type="text/css">
-	#overlay{
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 1);
-    transition: 1s 0.4s;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    font-size: 3em;
-    text-transform: uppercase;
-        transition: 0.3s;
-}
-	#slot_wrapper {
-		position: relative;
-	}
-	.jSlots-wrapper {
-	    margin: 4px 0;
-	    overflow: hidden;
-	    height: 80px;
-	    width: 300px;
-	    position: absolute;
-	    top: 0px;
-	    /* display: none; */
-	    margin: auto;
-	    left: 0;
-	    right: 0;
-	}
-	li, ul { padding: 0; margin:0; }
-#slot li {
-    overflow: hidden;
-    padding: 15px 10px;
-    text-align: center;
-    font-size: 26px;
-    font-weight: 900;
-    color: #5AAAAA;
-    display: block;
-    /* margin: 35px auto; */
-    height: 80px;
-        display: flex;
-    /* width: 100%; */
-    /* text-align: center; */
-    /* margin: auto; */
-    flex-direction: column;
-    justify-content: center;
-	}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="https://weather-pwa-sample.firebaseapp.com/final/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather PWA</title>
+  <link rel="stylesheet" type="text/css" href="styles/inline.css">
 
-	#slot {
-		display: none;
-	}
-	</style>
-	<link href='//fonts.googleapis.com/css?family=Gravitas+One&text=1234567' rel='stylesheet' type='text/css'>
+  <!-- TODO add manifest here -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Add to home screen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Weather PWA">
+  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+  <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
 </head>
 <body>
-   <div id="overlay">
-    
+
+  <header class="header">
+    <h1 class="header__title">Weather PWA</h1>
+    <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+    <button id="butAdd" class="headerButton" aria-label="Add"></button>
+  </header>
+
+  <main class="main">
+    <div class="card cardTemplate weather-forecast" hidden>
+      <div class="city-key" hidden></div>
+      <div class="card-last-updated" hidden></div>
+      <div class="location"></div>
+      <div class="date"></div>
+      <div class="description"></div>
+      <div class="current">
+        <div class="visual">
+          <div class="icon"></div>
+          <div class="temperature">
+            <span class="value"></span><span class="scale">°F</span>
+          </div>
+        </div>
+        <div class="description">
+          <div class="humidity"></div>
+          <div class="wind">
+            <span class="value"></span>
+            <span class="scale">mph</span>
+            <span class="direction"></span>°
+          </div>
+          <div class="sunrise"></div>
+          <div class="sunset"></div>
+        </div>
+      </div>
+      <div class="future">
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+        <div class="oneday">
+          <div class="date"></div>
+          <div class="icon"></div>
+          <div class="temp-high">
+            <span class="value"></span>°
+          </div>
+          <div class="temp-low">
+            <span class="value"></span>°
+          </div>
+        </div>
+      </div>
     </div>
-	<div class="container">
-		<div class="main_img">
-			<img src="images/Picture.jpg">
-		</div>
-		<div class="content">
-			<h2>購買一碗豆花</h2>
-            <h2>獲得一次抽獎機會</h2>
-			<div class="form_content">
+  </main>
 
-				<!-- <input type="text" name="" value="銘謝惠顧" disabled=""> -->
-				<!-- <button>START</button> -->
-			</div>
-			<!--  -->
-			<div id="slot_wrapper">
-			    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-			    <input type="text" class="search ui-autocomplete-input" autocomplete="off" disabled="">
-			    
-			    	<ul id="slot" style="position: relative; display: block;">
-			    		<li>銘謝惠顧</li>
-			    		<li>點數一點</li>
-			    		<li>點數三點</li>
-			    		<li>點數五點</li>
-			    		<li>再來一碗</li>
-			    	</ul>
-			</div>
-			<button type="button" id="random_location">START</button>
-			<!--  -->
-		</div>
-	</div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-<script src="js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.jSlots.js" charset="utf-8"></script>
+  <div class="dialog-container">
+    <div class="dialog">
+      <div class="dialog-title">Add new city</div>
+      <div class="dialog-body">
+        <select id="selectCityToAdd">
+          <!-- Values map to Yahoo Weather API Where On Earth Identifiers (WOEIDs).
+               https://developer.yahoo.com/weather/documentation.html#req -->
+          <option value="2357536">Austin, TX</option>
+          <option value="2367105">Boston, MA</option>
+          <option value="2379574">Chicago, IL</option>
+          <option value="2459115">New York, NY</option>
+          <option value="2475687">Portland, OR</option>
+          <option value="2487956">San Francisco, CA</option>
+          <option value="2490383">Seattle, WA</option>
+        </select>
+      </div>
+      <div class="dialog-buttons">
+        <button id="butAddCity" class="button">Add</button>
+        <button id="butAddCancel" class="button">Cancel</button>
+      </div>
+    </div>
+  </div>
 
-<script>
-$(window).load(function(){
-   // PAGE IS FULLY LOADED  
-   // FADE OUT YOUR OVERLAYING DIV
-  $('#overlay').fadeOut();
+  <div class="loader">
+    <svg viewBox="0 0 32 32" width="32" height="32">
+      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg>
+  </div>
 
-});
+  <!-- Uncomment the line below when ready to test with fake data -->
+  <script src="scripts/app.js" async></script>
 
-$(function() {
-	var msa = [
-			{ name: "銘謝惠顧",   pct: 62 },
-			{ name: "點數一點",   pct: 18 },
-			{ name: "點數三點",   pct: 14 },
-			{ name: "點數五點",   pct: 4 },
-			{ name: "再來一碗",   pct: 2 }
-		],
-		$input = $('input'),
-		random_index;
-    //make list for slots recursively and call spin when complete
-    function makeSlotList(list){
-    	//could choose one random index and then populate with next 18 values instead, but need to account for looping at end
-        if(list.length<5){//length chosen based on appearance of spin, can be changed
-            var index = _.random(msa.length-1);
-            if(list.length===1){
-            	/*
-            		This index will be second item in the list, which is our winning number
-            		Save this for future reference
-					Instead of saving it, we could get the index attribute from the list item we end on
-				*/
-                random_index = index;
-            }
-            list.push( '<li index='+_.random(msa.length-1)+'>'+msa[index].name+'</li>' );
-            return makeSlotList(list);
-        } else {
-            //slot list is complete
-            //clear search field
-            $input.val('');
-            //attach list, show jslots, run animation
-            $('#slot').html(list.join('')).parent().show().trigger('spin');
-            return list;
-        }
-    }
-    //before spinning, build out list to spin through and insert into the DOM
-    function makeSlots(){
-        //start with current value
-        var list = ['<li>'+$input.val()+'</li>'];
-        //call recursive list builder that won't spin slots until it's finished
-        makeSlotList(list);
-    }
-
-
-    $('#slot').jSlots({
-        spinner : '#random_location',
-        // spinEvent: 'spin',
-        // winnerNumber : 7,
-        time: 3000,
-        // easing: "swing",
-        loops: 6,
-         onStart: function(finalElement){
-         	if ($('.jSlots-wrapper #slot:first-child li').length >= 7) {
-         		$('#slot li').first().remove();
-         	}
-         	console.log($('.jSlots-wrapper #slot:first-child li').length);
-    		const expanded = [].concat(...msa.map(user => Array(user.pct).fill(user)));
-    		const winner = expanded[Math.floor(Math.random() * expanded.length)];
- 			$("#slot").prepend("<li>"+ winner.name +"</li>");
-         },
-        endNum: 1,//spins backwards through the list. endNum 1 ends on the same value we started on
-        onEnd: function(finalElement){
-			// console.log(msa[random_index].name);
-			console.log(finalElement);
-            //set result
-           // $('input').val(winner.name);
-            //hide spinner
-
-            // $(this.spinner).hide();
-        }
-    });
-    //bind random button
-    // $('#random_location').on('click', makeSlots);
-});
-</script>
 </body>
 </html>
